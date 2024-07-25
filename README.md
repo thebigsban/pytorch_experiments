@@ -1,5 +1,8 @@
 # PyTorch Experiments
 
+
+## Environment Setup
+
 Conda environment because setting up Docker with Jupyter notebook and remote file access takes too long. 
 ```bash
 conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
@@ -12,6 +15,8 @@ pip3 install tqdm
 conda activate torchnb
 ```
 
+## Docker Setup
+For including custom CUDA kernels/functions in PyTorch. Use Docker here because developing C++ on Windows is hell. Uses the `cuda-pytorch` docker image. 
 
 ## Rotary Positional Encoding
 Not sure about terminology, but the `rotate_half` implementation gives the correct results. Tried to implement one that was more in-line with the original Roformer paper, but that actually didn't end up working (the dot product after rotation depended on the index itself as well as the difference in indices). 
@@ -173,7 +178,7 @@ int main(void){
     cudaMemcpy(c, d_c, size, cudaMemcpyDeviceToHost); 
     
     // Cleanup f
-    ree(a); free(b); free(c); cudaFree(d_a); cudaFree(d_b); cudaFree(d_c); return 0; 
+    free(a); free(b); free(c); cudaFree(d_a); cudaFree(d_b); cudaFree(d_c); return 0; 
 }
 ```
 
